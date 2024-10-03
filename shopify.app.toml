@@ -3,15 +3,23 @@
 client_id = "d28949d245677c1932eaa07356e0cd28"
 name = "wishlist"
 handle = "wishlist-572"
-application_url = "https://example.com/"
+application_url = "https://pokemon-timer-animation-undergraduate.trycloudflare.com"
 embedded = true
+
+[build]
+automatically_update_urls_on_dev = true
+dev_store_url = "dev-store-wishlist.myshopify.com"
 
 [access_scopes]
 # Learn more at https://shopify.dev/docs/apps/tools/cli/configuration#access_scopes
 scopes = ""
 
 [auth]
-redirect_urls = [ "https://example.com/api/auth" ]
+redirect_urls = [
+  "https://pokemon-timer-animation-undergraduate.trycloudflare.com/auth/callback",
+  "https://pokemon-timer-animation-undergraduate.trycloudflare.com/auth/shopify/callback",
+  "https://pokemon-timer-animation-undergraduate.trycloudflare.com/api/auth/callback"
+]
 
 [webhooks]
 api_version = "2024-10"
