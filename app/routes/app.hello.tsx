@@ -1,19 +1,35 @@
 import { TitleBar } from "@shopify/app-bridge-react";
 import { BlockStack, Box, Button, Card, Page, Text } from "@shopify/polaris";
 import { PlusIcon } from "@shopify/polaris-icons";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useFetcher } from "@remix-run/react";
+import { json } from "@remix-run/node";
+import { User } from "app/types/User";
+
+interface FetcherData {
+  users?: User[];
+}
+
+export async function action() {
+  const response = await fetch("https://jsonplaceholder.typicode.com/users");
+  const users = await response.json();
+  return json({ users });
+}
 
 export default function HelloPage() {
-  const [loading, setLoading] = useState(false);
+  const [users, setUsers] = useState<User[]>([]);
+  const fetcher = useFetcher();
 
-  // mimic the loading state 
   const handleClick = () => {
-    setLoading(true);
-
-    setTimeout(() => {
-      setLoading(false);
-    }, 2000);
+    fetcher.submit(null, { method: "POST" });
   };
+
+  // Update users when fetcher data is available
+  useEffect(() => {
+    if (fetcher.data && (fetcher.data as FetcherData).users) {
+      setUsers((fetcher.data as FetcherData).users!);
+    }
+  }, [fetcher.data]);
 
   return (
     <Page>
@@ -27,12 +43,15 @@ export default function HelloPage() {
             <Button
               icon={PlusIcon}
               variant="primary"
-              loading={loading}
+              loading={fetcher.state === "submitting"}
               onClick={handleClick}
             >
-              Do something
+              Fetch Users
             </Button>
           </Box>
+          <Text as="p" variant="bodyMd">
+            Fetched {users.length} users
+          </Text>
         </BlockStack>
       </Card>
     </Page>
