@@ -1,5 +1,13 @@
 import { TitleBar } from "@shopify/app-bridge-react";
-import { BlockStack, Box, Button, Card, Page, Text } from "@shopify/polaris";
+import {
+  BlockStack,
+  Box,
+  Button,
+  Card,
+  DataTable,
+  Page,
+  Text,
+} from "@shopify/polaris";
 import { PlusIcon } from "@shopify/polaris-icons";
 import { useEffect, useState } from "react";
 import { useFetcher } from "@remix-run/react";
@@ -31,6 +39,13 @@ export default function HelloPage() {
     }
   }, [fetcher.data]);
 
+  const userRows: string[][] = users.map((user) => [
+    user.id.toString(),
+    user.name,
+    user.email,
+    user.phone,
+  ]);
+
   return (
     <Page>
       <TitleBar title="Hello page" />
@@ -52,6 +67,11 @@ export default function HelloPage() {
           <Text as="p" variant="bodyMd">
             Fetched {users.length} users
           </Text>
+          <DataTable
+            columnContentTypes={["text", "text", "text", "text"]}
+            headings={["ID", "Name", "Email", "Phone"]}
+            rows={userRows}
+          />
         </BlockStack>
       </Card>
     </Page>
