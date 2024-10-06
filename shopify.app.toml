@@ -3,7 +3,7 @@
 client_id = "d28949d245677c1932eaa07356e0cd28"
 name = "wishlist"
 handle = "wishlist-572"
-application_url = "https://companion-hansen-keith-as.trycloudflare.com"
+application_url = "https://inclusion-mn-disappointed-associate.trycloudflare.com"
 embedded = true
 
 [build]
@@ -17,9 +17,9 @@ scopes = "write_products"
 
 [auth]
 redirect_urls = [
-  "https://companion-hansen-keith-as.trycloudflare.com/auth/callback",
-  "https://companion-hansen-keith-as.trycloudflare.com/auth/shopify/callback",
-  "https://companion-hansen-keith-as.trycloudflare.com/api/auth/callback"
+  "https://inclusion-mn-disappointed-associate.trycloudflare.com/auth/callback",
+  "https://inclusion-mn-disappointed-associate.trycloudflare.com/auth/shopify/callback",
+  "https://inclusion-mn-disappointed-associate.trycloudflare.com/api/auth/callback"
 ]
 
 [webhooks]
