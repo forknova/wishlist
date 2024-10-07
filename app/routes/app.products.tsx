@@ -4,6 +4,7 @@ import { Page, Layout, Card, DataTable, Thumbnail, Pagination } from "@shopify/p
 import { authenticate } from "../shopify.server";
 import { PRODUCTS_QUERY } from "app/gql/queries";
 import { Product } from "app/types/Product";
+import { TitleBar } from "@shopify/app-bridge-react";
 
 export const loader = async ({ request }: LoaderFunctionArgs) => {
   const { admin } = await authenticate.admin(request);
@@ -50,6 +51,7 @@ export default function ProductsPage() {
 
   return (
     <Page>
+      <TitleBar title="Products" />
       <Layout>
         <Layout.Section>
           <Card>
