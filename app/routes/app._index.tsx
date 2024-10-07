@@ -16,6 +16,7 @@ import {
 } from "@shopify/polaris";
 import { TitleBar, useAppBridge } from "@shopify/app-bridge-react";
 import { authenticate } from "../shopify.server";
+import { CREATE_PRODUCT_MUTATION, UPDATE_PRODUCT_MUTATION } from "app/gql/mutations";
 
 export const loader = async ({ request }: LoaderFunctionArgs) => {
   await authenticate.admin(request);
@@ -29,27 +30,7 @@ export const action = async ({ request }: ActionFunctionArgs) => {
     Math.floor(Math.random() * 4)
   ];
   const response = await admin.graphql(
-    `#graphql
-      mutation populateProduct($input: ProductInput!) {
-        productCreate(input: $input) {
-          product {
-            id
-            title
-            handle
-            status
-            variants(first: 10) {
-              edges {
-                node {
-                  id
-                  price
-                  barcode
-                  createdAt
-                }
-              }
-            }
-          }
-        }
-      }`,
+    CREATE_PRODUCT_MUTATION,
     {
       variables: {
         input: {
@@ -64,17 +45,7 @@ export const action = async ({ request }: ActionFunctionArgs) => {
   const variantId = product.variants.edges[0]!.node!.id!;
 
   const variantResponse = await admin.graphql(
-    `#graphql
-    mutation shopifyRemixTemplateUpdateVariant($productId: ID!, $variants: [ProductVariantsBulkInput!]!) {
-      productVariantsBulkUpdate(productId: $productId, variants: $variants) {
-        productVariants {
-          id
-          price
-          barcode
-          createdAt
-        }
-      }
-    }`,
+    UPDATE_PRODUCT_MUTATION,
     {
       variables: {
         productId: product.id,
