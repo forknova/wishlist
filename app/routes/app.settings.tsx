@@ -7,20 +7,38 @@ import {
   InlineGrid,
   TextField,
   Divider,
+  Button,
 } from "@shopify/polaris";
 import { TitleBar } from "@shopify/app-bridge-react";
 import { useState } from "react";
-
+import { json, ActionFunction, LoaderFunction } from "@remix-run/node";
+import { Form, useLoaderData } from "@remix-run/react";
 interface FormState {
   name: string;
   description: string;
 }
 
+export const loader: LoaderFunction = async () => {
+  const settings = {
+    name: "My Wishlist Shopify App",
+    description: "This app allows customers to add items to their wishlist.",
+  };
+  return json(settings);
+};
+
+export const action: ActionFunction = async ({ request }) => {
+  const formData = await request.formData();
+  const settings: FormState = {
+    name: formData.get('name') as string,
+    description: formData.get('description') as string,
+  };
+  console.log(settings);
+  return json(settings);
+};
+
 export default function SettingsPage() {
-  const [formState, setFormState] = useState<FormState>({
-    name: "",
-    description: "",
-  });
+  const settings = useLoaderData<FormState>();
+  const [formState, setFormState] = useState<FormState>(settings);
 
   return (
     <Page>
@@ -42,24 +60,30 @@ export default function SettingsPage() {
             </BlockStack>
           </Box>
           <Card roundedAbove="sm">
-            <BlockStack gap="400">
-              <TextField
-                label="App Name"
-                autoComplete="off"
-                value={formState.name}
-                onChange={(value) =>
-                  setFormState({ ...formState, name: value })
-                }
-              />
-              <TextField
-                label="Description"
-                autoComplete="off"
-                value={formState.description}
-                onChange={(value) =>
-                  setFormState({ ...formState, description: value })
-                }
-              />
-            </BlockStack>
+            <Form method="POST">
+              <BlockStack gap="400">
+                <TextField
+                  label="App Name"
+                  name="name"
+                  autoComplete="off"
+                  value={formState.name}
+                  onChange={(value) =>
+                    setFormState({ ...formState, name: value })
+                  }
+                />
+                <TextField
+                  label="Description"
+                  autoComplete="off"
+                  name="description"
+                  value={formState.description}
+                  onChange={(value) =>
+                    setFormState({ ...formState, description: value })
+                  }
+                />
+              </BlockStack>
+              <Box padding="300"></Box>
+              <Button submit={true}>Save</Button>
+            </Form>
           </Card>
         </InlineGrid>
       </BlockStack>
