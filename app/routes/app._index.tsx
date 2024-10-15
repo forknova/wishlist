@@ -16,7 +16,10 @@ import {
 } from "@shopify/polaris";
 import { TitleBar, useAppBridge } from "@shopify/app-bridge-react";
 import { authenticate } from "../shopify.server";
-import { CREATE_PRODUCT_MUTATION, UPDATE_PRODUCT_MUTATION } from "app/gql/mutations";
+import {
+  CREATE_PRODUCT_MUTATION,
+  UPDATE_PRODUCT_MUTATION,
+} from "app/gql/mutations";
 
 export const loader = async ({ request }: LoaderFunctionArgs) => {
   await authenticate.admin(request);
@@ -29,30 +32,24 @@ export const action = async ({ request }: ActionFunctionArgs) => {
   const color = ["Red", "Orange", "Yellow", "Green"][
     Math.floor(Math.random() * 4)
   ];
-  const response = await admin.graphql(
-    CREATE_PRODUCT_MUTATION,
-    {
-      variables: {
-        input: {
-          title: `${color} Snowboard`,
-        },
+  const response = await admin.graphql(CREATE_PRODUCT_MUTATION, {
+    variables: {
+      input: {
+        title: `${color} Snowboard`,
       },
     },
-  );
+  });
   const responseJson = await response.json();
 
   const product = responseJson.data!.productCreate!.product!;
   const variantId = product.variants.edges[0]!.node!.id!;
 
-  const variantResponse = await admin.graphql(
-    UPDATE_PRODUCT_MUTATION,
-    {
-      variables: {
-        productId: product.id,
-        variants: [{ id: variantId, price: "100.00" }],
-      },
+  const variantResponse = await admin.graphql(UPDATE_PRODUCT_MUTATION, {
+    variables: {
+      productId: product.id,
+      variants: [{ id: variantId, price: "100.00" }],
     },
-  );
+  });
 
   const variantResponseJson = await variantResponse.json();
 

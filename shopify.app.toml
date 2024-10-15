@@ -3,7 +3,7 @@
 client_id = "d28949d245677c1932eaa07356e0cd28"
 name = "wishlist"
 handle = "wishlist-572"
-application_url = "https://favourites-mw-browser-where.trycloudflare.com"
+application_url = "https://dare-bench-releases-pty.trycloudflare.com"
 embedded = true
 
 [build]
@@ -17,9 +17,9 @@ scopes = "write_products"
 
 [auth]
 redirect_urls = [
-  "https://favourites-mw-browser-where.trycloudflare.com/auth/callback",
-  "https://favourites-mw-browser-where.trycloudflare.com/auth/shopify/callback",
-  "https://favourites-mw-browser-where.trycloudflare.com/api/auth/callback"
+  "https://dare-bench-releases-pty.trycloudflare.com/auth/callback",
+  "https://dare-bench-releases-pty.trycloudflare.com/auth/shopify/callback",
+  "https://dare-bench-releases-pty.trycloudflare.com/api/auth/callback"
 ]
 
 [webhooks]

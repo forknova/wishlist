@@ -7,12 +7,20 @@ import {
   InlineGrid,
   TextField,
   Divider,
-  useBreakpoints,
 } from "@shopify/polaris";
 import { TitleBar } from "@shopify/app-bridge-react";
+import { useState } from "react";
+
+interface FormState {
+  name: string;
+  description: string;
+}
 
 export default function SettingsPage() {
-  const { smUp } = useBreakpoints();
+  const [formState, setFormState] = useState<FormState>({
+    name: "",
+    description: "",
+  });
 
   return (
     <Page>
@@ -26,40 +34,31 @@ export default function SettingsPage() {
           >
             <BlockStack gap="400">
               <Text as="h3" variant="headingMd">
-                InterJambs
+                Settings
               </Text>
               <Text as="p" variant="bodyMd">
-                Interjambs are the rounded protruding bits of your puzzlie piece
+                Update app settings and preferences.
               </Text>
             </BlockStack>
           </Box>
           <Card roundedAbove="sm">
             <BlockStack gap="400">
-              <TextField label="Interjamb style" autoComplete="off" />
-              <TextField label="Interjamb ratio" autoComplete="off" />
-            </BlockStack>
-          </Card>
-        </InlineGrid>
-        {smUp ? <Divider /> : null}
-        <InlineGrid columns={{ xs: "1fr", md: "2fr 5fr" }} gap="400">
-          <Box
-            as="section"
-            paddingInlineStart={{ xs: "400", sm: "0" }}
-            paddingInlineEnd={{ xs: "400", sm: "0" }}
-          >
-            <BlockStack gap="400">
-              <Text as="h3" variant="headingMd">
-                Dimensions
-              </Text>
-              <Text as="p" variant="bodyMd">
-                Interjambs are the rounded protruding bits of your puzzlie piece
-              </Text>
-            </BlockStack>
-          </Box>
-          <Card roundedAbove="sm">
-            <BlockStack gap="400">
-              <TextField label="Horizontal" autoComplete="off" />
-              <TextField label="Vertical" autoComplete="off" />
+              <TextField
+                label="App Name"
+                autoComplete="off"
+                value={formState.name}
+                onChange={(value) =>
+                  setFormState({ ...formState, name: value })
+                }
+              />
+              <TextField
+                label="Description"
+                autoComplete="off"
+                value={formState.description}
+                onChange={(value) =>
+                  setFormState({ ...formState, description: value })
+                }
+              />
             </BlockStack>
           </Card>
         </InlineGrid>
