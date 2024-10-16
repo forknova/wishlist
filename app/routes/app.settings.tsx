@@ -6,7 +6,6 @@ import {
   BlockStack,
   InlineGrid,
   TextField,
-  Divider,
   Button,
 } from "@shopify/polaris";
 import { TitleBar } from "@shopify/app-bridge-react";
@@ -91,20 +90,3 @@ export default function SettingsPage() {
     </Page>
   );
 }
-
-// function Code({ children }: { children: React.ReactNode }) {
-//   return (
-//     <Box
-//       as="span"
-//       padding="025"
-//       paddingInlineStart="100"
-//       paddingInlineEnd="100"
-//       background="bg-surface-active"
-//       borderWidth="025"
-//       borderColor="border"
-//       borderRadius="100"
-//     >
-//       <code>{children}</code>
-//     </Box>
-//   );
-// }
