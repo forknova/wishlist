@@ -3,7 +3,7 @@
 client_id = "d28949d245677c1932eaa07356e0cd28"
 name = "wishlist"
 handle = "wishlist-572"
-application_url = "https://genuine-sectors-vary-geographic.trycloudflare.com"
+application_url = "https://liked-development-boulevard-partnership.trycloudflare.com"
 embedded = true
 
 [build]
@@ -17,9 +17,9 @@ scopes = "write_products"
 
 [auth]
 redirect_urls = [
-  "https://genuine-sectors-vary-geographic.trycloudflare.com/auth/callback",
-  "https://genuine-sectors-vary-geographic.trycloudflare.com/auth/shopify/callback",
-  "https://genuine-sectors-vary-geographic.trycloudflare.com/api/auth/callback"
+  "https://liked-development-boulevard-partnership.trycloudflare.com/auth/callback",
+  "https://liked-development-boulevard-partnership.trycloudflare.com/auth/shopify/callback",
+  "https://liked-development-boulevard-partnership.trycloudflare.com/api/auth/callback"
 ]
 
 [webhooks]
